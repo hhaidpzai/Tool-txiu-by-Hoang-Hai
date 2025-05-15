@@ -1,0 +1,48 @@
+    <img src="https://i.imgur.com/8paAUAn.jpeg" alt="Ảnh minh họa" style="width: 80%; max-width: 400px; border-radius: 10px; margin-top: 10px; box-shadow: 0 0 10px #00c3ff;">
+
+    <br><button onclick="showStep(3)">Tiếp tục</button>
+  </div>
+
+  <div id="step3" class="step">
+    <h2>NHẬP MÃ MD5</h2>
+    <input type="text" id="md5" placeholder="Nhập mã MD5"><br>
+    <button onclick="analyze()">PHÂN TÍCH</button>
+    <p id="analyzing" style="display:none;">BOT ĐANG PHÂN TÍCH...</p>
+    <div id="result"></div>
+  </div>
+
+  <canvas id="moneyCanvas" style="position:fixed; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:999;"></canvas>
+
+  <script>
+    function showStep(step) {
+      const steps = document.querySelectorAll('.step');
+      steps.forEach(s => s.classList.remove('visible'));
+      const current = document.getElementById('step' + step);
+      if(current) current.classList.add('visible');
+    }
+
+    function login() {
+      showStep(2);
+    }
+
+    function selectGame(game) {
+      document.getElementById('otherSite').value = game;
+    }
+
+    function analyze() {
+      const md5 = document.getElementById('md5').value.trim();
+      if(md5.length < 24) {
+        alert("Mã MD5 không hợp lệ!");
+        return;
+      }
+      document.getElementById('analyzing').style.display = 'block';
+      document.getElementById('result').innerHTML = '';
+
+      setTimeout(() => {
+        document.getElementById('analyzing').style.display = 'none';
+        document.getElementById('result').innerHTML = `<div style="padding:20px; background:#00f7ff; border-radius:6px; color:#000; font-weight:bold;">Phân tích MD5 thành công: <br>Mã: ${md5}</div>`;
+      }, 2000);
+    }
+  </script>
+</body>
+</html>
